@@ -5,23 +5,34 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @Test()
-public class FrancTest {
-    private Money five = Money.franc(5);
+public class MoneyTest {
+    private Money fiveDollars = Money.dollar(5);
+    private Money fiveFrancs = Money.franc(5);
 
     @DataProvider(name = "multiplication")
     private Object[][] provideObjectsForMultiplyTest() {
         return new Object[][] {
-                {five.times(2), Money.franc(10)},
-                {five.times(3), Money.franc(15)}
+                {fiveDollars.times(2), Money.dollar(10)},
+                {fiveDollars.times(3), Money.dollar(15)},
+                {fiveFrancs.times(2), Money.franc(10)},
+                {fiveFrancs.times(3), Money.franc(15)}
         };
     }
 
     @DataProvider(name = "equality")
     private Object[][] provideObjectsForEquality() {
         return new Object[][] {
+                {true, Money.dollar(5), Money.dollar(5)},
+                {false, Money.dollar(7), Money.dollar(5)},
+                {false, Money.dollar(4), null},
                 {true, Money.franc(5), Money.franc(5)},
                 {false, Money.franc(7), Money.franc(5)},
-                {false, Money.franc(4), null}
+                {false, Money.franc(4), null},
+                {true, Money.dollar(5), Money.dollar(5)},
+                {false, Money.dollar(6), Money.dollar(5)},
+                {true, Money.franc(5), Money.franc(5)},
+                {false, Money.franc(6), Money.franc(5)},
+                {false, Money.dollar(5), Money.franc(5)}
         };
     }
 
@@ -37,6 +48,7 @@ public class FrancTest {
 
     @Test // currency
     public void currencyTest() {
+        Assert.assertEquals(Money.dollar(1).currency(), "USD");
         Assert.assertEquals(Money.franc(1).currency(), "CHF");
     }
 }
