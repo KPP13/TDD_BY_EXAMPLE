@@ -30,10 +30,13 @@ public class FrancTest {
         Assert.assertEquals(actual, excepted);
     }
 
-
-
     @Test(dataProvider = "equality") // equality
     void testEquality(boolean excepted, Franc leftObj, Franc rightObj) {
         Assert.assertEquals( leftObj.equals(rightObj), excepted );
+    }
+
+    @Test // currency
+    public void currencyTest() {
+        Assert.assertEquals(Money.franc(1).currency(), "CHF");
     }
 }

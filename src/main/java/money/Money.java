@@ -2,6 +2,7 @@ package money;
 
 public abstract class Money {
     protected int amount;
+    protected String currency;
 
     // equals -> value object
     @Override
@@ -17,13 +18,18 @@ public abstract class Money {
     // multiply method
     abstract Money times(int multiplier);
 
+    // currency method
+    String currency() {
+        return currency;
+    }
+
     // factory method for Dollar
     static Dollar dollar(int amount) {
-        return new Dollar(amount);
+        return new Dollar(amount, "USD");
     }
 
     // factory method for Franc
     static Franc franc(int amount) {
-        return new Franc(amount);
+        return new Franc(amount, "CHF");
     }
 }

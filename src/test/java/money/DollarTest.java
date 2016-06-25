@@ -30,10 +30,13 @@ public class DollarTest {
         Assert.assertEquals(actual, excepted);
     }
 
-
-
     @Test(dataProvider = "equality") // equality
     void testEquality(boolean excepted, Dollar leftObj, Dollar rightObj) {
         Assert.assertEquals( leftObj.equals(rightObj), excepted );
+    }
+
+    @Test // currency
+    public void currencyTest() {
+        Assert.assertEquals(Money.dollar(1).currency(), "USD");
     }
 }
