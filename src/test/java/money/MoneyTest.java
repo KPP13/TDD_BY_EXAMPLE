@@ -36,6 +36,13 @@ public class MoneyTest {
         };
     }
 
+    @DataProvider(name = "money")
+    private Object[][] provideBucksAndFrancs() {
+        return new Object[][] {
+                {Money.dollar(5), Money.franc(10)}
+        };
+    }
+
     @Test(dataProvider = "multiplication") // multiplication
     void testMultiplication(Money actual, Money excepted) {
         Assert.assertEquals(actual, excepted);
@@ -98,13 +105,35 @@ public class MoneyTest {
         Assert.assertEquals(1, new Bank().rate("USD", "USD"));
     }
 
-    @Test // mixed
-    public void testMixedAddition() {
-        Expression fiveBucks = Money.dollar(5);
-        Expression tenFrancs = Money.franc(10);
+    @Test(dataProvider = "money") // mixed
+    public void testMixedAddition(Expression fiveBucks, Expression tenFrancs) {
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
         Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
         Assert.assertEquals(result, Money.dollar(10));
+    }
+
+    @Test(dataProvider = "money") // sum -> plus
+    public void testSumPlusMoney(Expression fiveBucks, Expression tenFrancs) {
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Expression sum = new Sum(fiveBucks, tenFrancs).plus( fiveBucks );
+        Money result = bank.reduce(sum, "USD");
+        Assert.assertEquals(result, Money.dollar(15));
+    }
+
+    @Test(dataProvider = "money") // test sum times
+    public void testSumTimes(Expression fiveBucks, Expression tenFrancs) {
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Expression sum = new Sum(fiveBucks, tenFrancs).times(2);
+        Money result = bank.reduce(sum, "USD");
+        Assert.assertEquals(Money.dollar(20), result);
+    }
+
+    @Test  // check instance
+    public void testPlusSameCurrencyReturnsMoney() {
+        Expression sum = Money.dollar(1).plus( Money.dollar(1) );
+        Assert.assertTrue(sum instanceof Sum);
     }
 }
