@@ -6,22 +6,22 @@ import org.testng.annotations.Test;
 
 @Test()
 public class FrancTest {
-    private Franc five = new Franc(5);
+    private Franc five = Money.franc(5);
 
     @DataProvider(name = "multiplication")
     private Object[][] provideObjectsForMultiplyTest() {
         return new Object[][] {
-                {five.times(2), new Franc(10)},
-                {five.times(3), new Franc(15)}
+                {five.times(2), Money.franc(10)},
+                {five.times(3), Money.franc(15)}
         };
     }
 
     @DataProvider(name = "equality")
     private Object[][] provideObjectsForEquality() {
         return new Object[][] {
-                {true, new Franc(5), new Franc(5)},
-                {false, new Franc(7), new Franc(5)},
-                {false, new Franc(4), null}
+                {true, Money.franc(5), Money.franc(5)},
+                {false, Money.franc(7), Money.franc(5)},
+                {false, Money.franc(4), null}
         };
     }
 
