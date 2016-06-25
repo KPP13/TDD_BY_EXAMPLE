@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 @Test()
 public class FrancTest {
-    private Franc five = Money.franc(5);
+    private Money five = Money.franc(5);
 
     @DataProvider(name = "multiplication")
     private Object[][] provideObjectsForMultiplyTest() {
@@ -26,12 +26,12 @@ public class FrancTest {
     }
 
     @Test(dataProvider = "multiplication") // multiplication
-    void testMultiplication(Franc actual, Franc excepted) {
+    void testMultiplication(Money actual, Money excepted) {
         Assert.assertEquals(actual, excepted);
     }
 
     @Test(dataProvider = "equality") // equality
-    void testEquality(boolean excepted, Franc leftObj, Franc rightObj) {
+    void testEquality(boolean excepted, Money leftObj, Money rightObj) {
         Assert.assertEquals( leftObj.equals(rightObj), excepted );
     }
 

@@ -26,12 +26,12 @@ public class DollarTest {
     }
 
     @Test(dataProvider = "multiplication") // multiplication
-    void testMultiplication(Dollar actual, Dollar excepted) {
+    void testMultiplication(Money actual, Money excepted) {
         Assert.assertEquals(actual, excepted);
     }
 
     @Test(dataProvider = "equality") // equality
-    void testEquality(boolean excepted, Dollar leftObj, Dollar rightObj) {
+    void testEquality(boolean excepted, Money leftObj, Money rightObj) {
         Assert.assertEquals( leftObj.equals(rightObj), excepted );
     }
 
