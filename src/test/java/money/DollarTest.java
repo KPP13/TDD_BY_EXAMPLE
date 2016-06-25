@@ -1,4 +1,4 @@
-package dollar;
+package money;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;

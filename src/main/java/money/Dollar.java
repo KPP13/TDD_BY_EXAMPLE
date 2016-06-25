@@ -1,4 +1,4 @@
-package dollar;
+package money;
 
 class Dollar {
     private int amount;
